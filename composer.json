@@ -1,0 +1,21 @@
+{
+    "name": "netsells/marklang",
+    "description": "Small package to allow markdown translation files for Laravel.",
+    "keywords": ["markdown", "translation", "laravel", "localization"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Jordan",
+            "email": "sam@netsells.co.uk"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "league/commonmark": "0.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Netsells\\Marklang\\": "src/Netsells/Marklang"
+        }
+    }
+}
