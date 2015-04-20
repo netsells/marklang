@@ -36,7 +36,12 @@ class Marklang {
         $markdown = $this->getMarkdownForKey($key);
 
         if (!$markdown) {
-            // TODO :D
+            // No markdown for the current locale, lets fallback to the main lang
+            $markdown = $this->getMarkdownForKey($key, true);
+
+            if (!$markdown) {
+                // TODO :D
+            }
         }
 
         $html = $this->markdownToHtml($markdown);
@@ -49,18 +54,25 @@ class Marklang {
         return $this->lang->locale();
     }
 
-    private function getMarkdownForKey($key)
+    private function fallbackLocale()
     {
-        $markdownPath = $this->pathForMarkdownFileWithKey($key);
+        return $this->lang->getFallback();
+    }
+
+    private function getMarkdownForKey($key, $useFallback = false)
+    {
+        $markdownPath = $this->pathForMarkdownFileWithKey($key, $useFallback);
         if (file_exists($markdownPath)) {
             return file_get_contents($markdownPath);
         }
     }
 
-    private function pathForMarkdownFileWithKey($key)
+    private function pathForMarkdownFileWithKey($key, $useFallback = false)
     {
         $keyPath = $this->keyToPath($key);
-        return $this->langPath . "/lang/" . $this->currentLocale() . "/content/" . $keyPath . ".md";
+        $lang = ($useFallback) ? $this->fallbackLocale() : $this->currentLocale();
+
+        return "{$this->langPath}/lang/{$lang}/content/{$keyPath}.md";
     }
 
     private function keyToPath($key)
