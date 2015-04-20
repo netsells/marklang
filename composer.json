@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Netsells\\Marklang\\": "src/Netsells/Marklang"
+            "Netsells\\Marklang\\": "src/Marklang"
         }
     }
 }
